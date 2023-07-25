@@ -1,8 +1,13 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { useCallback } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as SplashScreen from "expo-splash-screen"
+import BottomTabNavigation from './navigations/BottomTabNavigation';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -29,10 +34,15 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name='Bottom Navigation'
+          component={BottomTabNavigation}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -43,4 +53,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textStyle: {
+    fontFamily: "extrabold",
+    fontSize: 20
+  }
 });
