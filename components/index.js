@@ -1,9 +1,5 @@
-import Search from "../screens/Search";
-import Home from "../screens/Home";
-import Profile from "../screens/Profile";
+import Welcome from "./home/Welcome";
 
 export {
-    Search,
-    Home,
-    Profile
+    Welcome
 }
