@@ -5,6 +5,8 @@ import { useCallback } from 'react';
 import * as SplashScreen from "expo-splash-screen"
 import BottomTabNavigation from './navigations/BottomTabNavigation';
 import { Cart, ProductDetails } from './screens';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,27 +35,29 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name='Bottom Navigation'
-          component={BottomTabNavigation}
-          options={{ headerShown: false }}
-        />
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name='Bottom Navigation'
+            component={BottomTabNavigation}
+            options={{ headerShown: false }}
+          />
 
-        <Stack.Screen
-          name='Cart'
-          component={Cart}
-          options={{ headerShown: false }}
-        />
+          <Stack.Screen
+            name='Cart'
+            component={Cart}
+            options={{ headerShown: false }}
+          />
 
-        <Stack.Screen
-          name='ProductDetails'
-          component={ProductDetails}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen
+            name='ProductDetails'
+            component={ProductDetails}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
