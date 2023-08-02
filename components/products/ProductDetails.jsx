@@ -8,8 +8,12 @@ import {
 } from "@expo/vector-icons";
 import { COLORS, SIZES } from "../../constants";
 import styles from "./ProductDetails.style";
+import { useRoute } from "@react-navigation/native";
 
 const ProductDetails = ({ navigation }) => {
+  const route = useRoute();
+  const { item } = route.params;
+
   const [count, setCount] = useState(1);
 
   const handleIncrement = () => {
@@ -35,16 +39,16 @@ const ProductDetails = ({ navigation }) => {
       </View>
       <Image
         source={{
-          uri: "https://res.cloudinary.com/ddxf1wteu/image/upload/v1690480479/Jedson_15_-_Piece_Upholstered_Sectional_mhsrln.webp",
+          uri: item.imageUrl,
         }}
         style={styles.images}
       />
 
       <View style={styles.details}>
         <View style={styles.titleRow}>
-          <Text style={styles.title}>Product</Text>
+          <Text style={styles.title}>{item.title}</Text>
           <View style={styles.priceWrapper}>
-            <Text style={styles.price}>$ 903.30</Text>
+            <Text style={styles.price}>{item.price}</Text>
           </View>
         </View>
 
@@ -69,21 +73,14 @@ const ProductDetails = ({ navigation }) => {
 
         <View style={styles.descWrapper}>
           <Text style={styles.description}>Description</Text>
-          <Text style={styles.descriptionText}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.
-          </Text>
+          <Text style={styles.descriptionText}>{item.description}</Text>
         </View>
 
         <View style={{ marginBottom: SIZES.small }}>
           <View style={styles.location}>
             <View style={{ flexDirection: "row" }}>
               <Ionicons name="location-outline" size={20} />
-              <Text> Edmonton </Text>
+              <Text> {item.product_location} </Text>
             </View>
 
             <View style={{ flexDirection: "row" }}>

@@ -5,16 +5,18 @@ import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 
-const ProductCardView = () => {
+const ProductCardView = ({ item }) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("ProductDetails")}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("ProductDetails", { item })}
+    >
       <View style={styles.container}>
         <View style={styles.imgContainer}>
           <Image
             source={{
-              uri: "https://res.cloudinary.com/ddxf1wteu/image/upload/v1690480479/Jedson_15_-_Piece_Upholstered_Sectional_mhsrln.webp",
+              uri: item.imageUrl,
             }}
             style={styles.image}
           />
@@ -22,12 +24,12 @@ const ProductCardView = () => {
 
         <View style={styles.details}>
           <Text style={styles.title} numberOfLines={1}>
-            Product
+            {item.title}
           </Text>
           <Text style={styles.supplier} numberOfLines={1}>
-            Product
+            {item.supplier}
           </Text>
-          <Text style={styles.price}>$29.09</Text>
+          <Text style={styles.price}>{item.price}</Text>
         </View>
         <TouchableOpacity style={styles.addBtn}>
           <Ionicons name="add-circle" size={35} color={COLORS.primary} />
