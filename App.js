@@ -7,6 +7,7 @@ import BottomTabNavigation from './navigations/BottomTabNavigation';
 import { Cart, ProductDetails } from './screens';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import NewRivals from './screens/NewRivals';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,6 +54,12 @@ export default function App() {
           <Stack.Screen
             name='ProductDetails'
             component={ProductDetails}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name='ProductList'
+            component={NewRivals}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

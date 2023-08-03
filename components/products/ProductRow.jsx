@@ -7,6 +7,7 @@ import useFetch from "../../hooks/useFetch";
 
 const ProductRow = () => {
   const { data, isLoading, isError } = useFetch();
+  console.log(data);
 
   return (
     <View style={styles.container}>
@@ -20,9 +21,7 @@ const ProductRow = () => {
           keyExtractor={(item) => item._id}
           horizontal
           contentContainerStyle={{ columnGap: SIZES.medium }}
-          renderItem={({ item }) => {
-            return <ProductCardView item={item} />;
-          }}
+          renderItem={({ item }) => <ProductCardView item={item} />}
         />
       )}
     </View>
