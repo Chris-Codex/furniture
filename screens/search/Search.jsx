@@ -1,13 +1,31 @@
-import { View, TouchableOpacity, TextInput } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { COLORS, SIZES } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./search.style";
+import axios from "axios";
+import { FlatList } from "react-native-gesture-handler";
+import SearchList from "../../components/products/SearchList";
 
 const Search = () => {
   const navigation = useNavigation();
+  const [searchQry, setSearchQry] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  console.log("SEARCH RESULT", searchResult);
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios
+        .get(`http://localhost:3005/api/product/search/${searchQry}`)
+        .then((res) => setSearchResult(res.data))
+        .catch((error) => console.log(error));
+      return response;
+    } catch (error) {
+      console.log(error, "failed to get product");
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -22,15 +40,31 @@ const Search = () => {
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            value=""
+            value={searchQry}
             placeholder="Search furnitures"
-            onPressIn={() => navigation.navigate("Search")}
+            onChangeText={setSearchQry}
           />
         </View>
-        <TouchableOpacity style={styles.searchBtn}>
+        <TouchableOpacity style={styles.searchBtn} onPress={handleSearch}>
           <Feather name="search" size={SIZES.xLarge} color={COLORS.offwhite} />
         </TouchableOpacity>
       </View>
+
+      {searchResult.length === 0 ? (
+        <View style={{ flex: 1 }}>
+          <Image
+            source={require("../../assets/images/Pose23.png")}
+            style={styles.searchImage}
+          />
+        </View>
+      ) : (
+        <FlatList
+          data={searchResult}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => <SearchList item={item} />}
+          style={{ marginHorizontal: 12 }}
+        />
+      )}
     </SafeAreaView>
   );
 };
