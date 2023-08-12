@@ -8,24 +8,11 @@ import styles from "./search.style";
 import axios from "axios";
 import { FlatList } from "react-native-gesture-handler";
 import SearchList from "../../components/products/SearchList";
+import useFetch from "../../hooks/useFetch";
 
 const Search = () => {
   const navigation = useNavigation();
-  const [searchQry, setSearchQry] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
-  console.log("SEARCH RESULT", searchResult);
-
-  const handleSearch = async () => {
-    try {
-      const response = await axios
-        .get(`http://localhost:3005/api/product/search/${searchQry}`)
-        .then((res) => setSearchResult(res.data))
-        .catch((error) => console.log(error));
-      return response;
-    } catch (error) {
-      console.log(error, "failed to get product");
-    }
-  };
+  const { handleSearch, searchQry, setSearchQry, searchResult } = useFetch();
 
   return (
     <SafeAreaView>

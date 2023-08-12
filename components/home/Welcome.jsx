@@ -5,9 +5,11 @@ import { COLORS, SIZES } from "../../constants";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import useFetch from "../../hooks/useFetch";
 
 const Welcome = () => {
   const navigation = useNavigation();
+  const { handleSearch, searchQry, setSearchQry, searchResult } = useFetch();
 
   return (
     <View>
